@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - STASH</title>
+    <meta name="description" content="Entre em contato conosco. Estamos aqui para ajudar com suas dúvidas, sugestões e atendimento personalizado.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .contato-hero {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f0f0f0" width="1200" height="400"/><path fill="%23e0e0e0" d="M0,200 Q300,100 600,200 T1200,200 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+            color: var(--color-secondary);
+            margin-top: 80px;
+        }
+        
+        .contato-section {
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .contato-card {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            height: 100%;
+            transition: all var(--transition-normal);
+        }
+        
+        .contato-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .contato-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-gray-dark));
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            color: var(--color-secondary);
+            font-size: var(--font-size-xl);
+        }
+        
+        .form-contato {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .form-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            transition: all var(--transition-normal);
+            font-family: inherit;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(255, 235, 59, 0.2);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn-enviar {
+            width: 100%;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+        }
+        
+        .btn-enviar:hover {
+            background-color: var(--color-gray-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background-color: var(--color-gray-light);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-normal);
+        }
+        
+        .info-item:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            transform: translateX(5px);
+        }
+        
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .info-item:hover .info-icon {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+        
+        .info-content h5 {
+            margin: 0 0 var(--spacing-xs) 0;
+            font-weight: 600;
+        }
+        
+        .info-content p {
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        .horarios-funcionamento {
+            background-color: var(--color-gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .horario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .horario-item:last-child {
+            border-bottom: none;
+        }
+        
+        .horario-dia {
+            font-weight: 500;
+        }
+        
+        .horario-hora {
+            color: var(--color-gray-medium);
+        }
+        
+        .faq-section {
+            background-color: var(--color-gray-light);
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .faq-item {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            background-color: var(--color-secondary);
+            border: none;
+            width: 100%;
+            padding: var(--spacing-lg);
+            text-align: left;
+            cursor: pointer;
+            font-size: var(--font-size-lg);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-normal);
+        }
+        
+        .faq-question:hover {
+            background-color: var(--color-gray-light);
+        }
+        
+        .faq-question.active {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+        
+        .faq-icon {
+            transition: transform var(--transition-normal);
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 var(--spacing-lg);
+            max-height: 0;
+            overflow: hidden;
+            transition: all var(--transition-normal);
+        }
+        
+        .faq-answer.active {
+            padding: var(--spacing-lg);
+            max-height: 200px;
+        }
+        
+        .social-contato {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .social-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-full);
+            background-color: var(--color-gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-size: var(--font-size-xl);
+            transition: all var(--transition-normal);
+        }
+        
+        .social-btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        @media (max-width: 768px) {
+            .contato-section {
+                padding: var(--spacing-xl) 0;
+            }
+            
+            .contato-card {
+                margin-bottom: var(--spacing-xl);
+            }
+            
+            .social-contato {
+                flex-wrap: wrap;
+                gap: var(--spacing-md);
+            }
+            
+            .social-btn {
+                width: 50px;
+                height: 50px;
+                font-size: var(--font-size-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+
+            <ul class="navbar-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link active" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="action-btn" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="favoritosBadge">0</span>
+                </button>
+                <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="carrinhoBadge">0</span>
+                </button>
+            </div>
+
+            <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+            <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+            
+            <ul class="mobile-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="mobile-actions">
+                <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                    <i class="fas fa-search"></i>
+                    <span>Pesquisar</span>
+                </button>
+                <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                    <i class="fas fa-user"></i>
+                    <span>Login</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span>Favoritos</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Carrinho</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modais -->
+    <div class="modal-overlay" id="searchModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pesquisar Produtos</h3>
+                <button class="modal-close" id="closeSearchModal" aria-label="Fechar modal de pesquisa">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Digite o que você procura..." autocomplete="off">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <div class="search-suggestions">
+                    <h4>Sugestões Populares</h4>
+                    <div class="suggestion-tags">
+                        <button class="suggestion-tag" data-search="camisas">Camisas</button>
+                        <button class="suggestion-tag" data-search="camisas brancas">Camisas Brancas</button>
+                        <button class="suggestion-tag" data-search="camisas pretas">Camisas Pretas</button>
+                        <button class="suggestion-tag" data-search="stash">Stash</button>
+                        <button class="suggestion-tag" data-search="ofertas">Ofertas</button>
+                        <button class="suggestion-tag" data-search="novidades">Novidades</button>
+                    </div>
+                </div>
+
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <h4>Resultados da Pesquisa</h4>
+                    <div id="resultsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Entrar na sua conta</h3>
+                <button class="modal-close" id="closeLoginModal" aria-label="Fechar modal de login">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" class="form-input" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Senha</label>
+                        <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Lembrar de mim</label>
+                        </div>
+                        <a href="recuperar-senha.html" class="forgot-password">Esqueci minha senha</a>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+                        <button type="button" class="btn btn-secondary btn-lg" id="criarContaBtn">Criar conta</button>
+                    </div>
+                </form>
+
+                <div class="divider">
+                    <span>ou continue com</span>
+                </div>
+
+                <div class="social-login">
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                </div>
+
+                <div class="signup-link">
+                    Não tem uma conta? <a href="cadastro.html">Cadastre-se gratuitamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section com imagem de fundo -->
+<section class="contato-hero text-white text-center d-flex align-items-center" style="
+    background-image: url('/img/BannerContato.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 60vh;
+    position: relative;
+">
+
+  <!-- Camada escura sobre a imagem -->
+  <div style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+  "></div>
+
+  <!-- Conteúdo centralizado -->
+  <div class="container position-relative" style="z-index: 2;">
+    <h1>Entre em Contato</h1>
+    <p class="lead">Estamos aqui para ajudar! Fale conosco através dos nossos canais de atendimento</p>
+  </div>
+</section>
+
+
+    <!-- Informações de Contato -->
+    <section class="contato-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="contato-card text-center">
+                        <div class="contato-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Telefone</h4>
+                        <p>Ligue para nós e fale diretamente com nossa equipe de atendimento.</p>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <h5>Atendimento</h5>
+                                <p>(11) 9999-9999</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="info-content">
+                                <h5>WhatsApp</h5>
+                                <p>(11) 9999-9999</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="contato-card text-center">
+                        <div class="contato-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>E-mail</h4>
+                        <p>Envie sua mensagem e responderemos o mais rápido possível.</p>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h5>Geral</h5>
+                                <p>contato@stash.com.br</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="info-content">
+                                <h5>Suporte</h5>
+                                <p>suporte@stash.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="contato-card text-center">
+                        <div class="contato-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Localização</h4>
+                        <p>Visite nosso escritório ou centro de distribuição.</p>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="info-content">
+                                <h5>Escritório</h5>
+                                <p>Av. Paulista, 1000<br>São Paulo - SP</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            <div class="info-content">
+                                <h5>Centro de Distribuição</h5>
+                                <p>Guarulhos - SP</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de Contato -->
+    <section class="contato-section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="form-contato">
+                        <h2 class="form-title">Envie sua Mensagem</h2>
+                        <form action="/contato" method="post" id="contatoForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label" for="nome">Nome Completo</label>
+        <input type="text" class="form-input" id="nome" name="nome" required>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label" for="email">E-mail</label>
+        <input type="email" class="form-input" id="emailContato" name="email" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label" for="telefone">Telefone</label>
+        <input type="tel" class="form-input" id="telefone" name="telefone">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label" for="assunto">Assunto</label>
+        <select class="form-select" id="assunto" name="assunto" required>
+          <option value="">Selecione um assunto</option>
+          <option value="duvida">Dúvida sobre produto</option>
+          <option value="pedido">Acompanhar pedido</option>
+          <option value="troca">Troca/Devolução</option>
+          <option value="sugestao">Sugestão</option>
+          <option value="reclamacao">Reclamação</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="mensagem">Mensagem</label>
+    <textarea class="form-textarea" id="mensagem" name="mensagem" placeholder="Descreva sua dúvida, sugestão ou comentário..." required></textarea>
+  </div>
+
+  <button type="submit" class="btn-enviar">
+    <i class="fas fa-paper-plane"></i> Enviar Mensagem
+  </button>
+</form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horários de Funcionamento -->
+    <section class="contato-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <div class="text-center mb-4">
+                        <h2>Horários de Atendimento</h2>
+                        <p class="lead">Confira nossos horários para melhor atendê-lo</p>
+                    </div>
+                    
+                    <div class="horarios-funcionamento">
+                        <div class="horario-item">
+                            <span class="horario-dia">Segunda a Sexta</span>
+                            <span class="horario-hora">08:00 - 18:00</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="horario-dia">Sábado</span>
+                            <span class="horario-hora">09:00 - 15:00</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="horario-dia">Domingo</span>
+                            <span class="horario-hora">Fechado</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="horario-dia">Feriados</span>
+                            <span class="horario-hora">Fechado</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <h4>Siga-nos nas Redes Sociais</h4>
+                        <p>Fique por dentro das novidades e promoções</p>
+                        <div class="social-contato">
+                            <a href="#" class="social-btn" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-btn" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-btn" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-btn" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="social-btn" aria-label="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Perguntas Frequentes</h2>
+                <p class="lead">Encontre respostas para as dúvidas mais comuns</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Como posso acompanhar meu pedido?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Após a confirmação do pagamento, você receberá um e-mail com o código de rastreamento. Você também pode acompanhar o status do seu pedido na área "Meus Pedidos" em sua conta.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Qual o prazo de entrega?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>O prazo de entrega varia conforme sua localização e modalidade de frete escolhida. Geralmente, entregamos em 3 a 10 dias úteis para todo o Brasil.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Como funciona a política de trocas?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Você tem até 30 dias para solicitar a troca de produtos. O item deve estar em perfeitas condições, com etiquetas e embalagem original. Entre em contato conosco para iniciar o processo.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Quais formas de pagamento vocês aceitam?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Aceitamos cartões de crédito (Visa, Mastercard, Elo), cartões de débito, PIX, boleto bancário e parcelamento em até 12x sem juros no cartão de crédito.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Como escolher o tamanho correto?</span>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Cada produto possui uma tabela de medidas detalhada. Recomendamos que você consulte essas informações e compare com suas medidas pessoais para escolher o tamanho ideal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>STASH</h5>
+                    <p>Sua loja de moda online com as melhores tendências e qualidade excepcional.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Links Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html?categoria=camisas">Camisas</a></li>
+                        <li><a href="produtos.html?categoria=calcas">Calças</a></li>
+                        <li><a href="produtos.html?categoria=acessorios">Acessórios</a></li>
+                        <li><a href="produtos.html?categoria=ofertas">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Suporte</h6>
+                    <ul class="footer-links">
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="devolucoes.html">Devoluções</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Contato</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@stash.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 STASH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('.faq-icon');
+            
+            // Fechar todas as outras FAQs
+            document.querySelectorAll('.faq-question').forEach(q => {
+                if (q !== button) {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                }
+            });
+            
+            // Toggle da FAQ atual
+            button.classList.toggle('active');
+            answer.classList.toggle('active');
+        }
+
+     
+    </script>
+</body>
+</html>
+

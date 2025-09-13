@@ -1,0 +1,377 @@
+/* Authentication Pages Styles */
+
+/* Auth Section */
+.auth-section {
+  padding: 6rem 0 3rem;
+  background-color: var(--light-gray);
+  min-height: calc(100vh - 80px);
+}
+
+.auth-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--primary-white);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.auth-header {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+.auth-header h1 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-beige);
+}
+
+.auth-header p {
+  color: var(--primary-white);
+  opacity: 0.9;
+}
+
+/* Auth Tabs */
+.auth-tabs {
+  display: flex;
+  background-color: var(--primary-black);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  color: var(--primary-white);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: var(--transition);
+  border-bottom: 3px solid transparent;
+}
+
+.auth-tab.active {
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+  border-bottom-color: var(--primary-beige);
+}
+
+.auth-tab:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Auth Form Container */
+.auth-form-container {
+  display: none;
+  padding: 2rem;
+}
+
+.auth-form-container.active {
+  display: block;
+}
+
+/* Auth Form */
+.auth-form {
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--primary-black);
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--medium-gray);
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  border-color: var(--primary-black);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--medium-gray);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.toggle-password:hover {
+  color: var(--primary-black);
+}
+
+/* Form Options */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.remember-me input {
+  margin-right: 0.5rem;
+}
+
+.forgot-password {
+  color: var(--primary-black);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.forgot-password:hover {
+  color: var(--medium-gray);
+}
+
+/* Password Strength */
+.password-strength {
+  margin-top: 0.5rem;
+}
+
+.strength-bar {
+  height: 4px;
+  background-color: var(--border-color);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.strength-progress {
+  height: 100%;
+  width: 0%;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.strength-progress.weak {
+  width: 25%;
+  background-color: #ff4444;
+}
+
+.strength-progress.fair {
+  width: 50%;
+  background-color: #ffaa00;
+}
+
+.strength-progress.good {
+  width: 75%;
+  background-color: #00aa00;
+}
+
+.strength-progress.strong {
+  width: 100%;
+  background-color: #008800;
+}
+
+.strength-text {
+  font-size: 0.8rem;
+  color: var(--medium-gray);
+}
+
+/* Checkbox Label */
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.checkbox-label input {
+  margin-right: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.checkbox-label a {
+  color: var(--primary-black);
+  text-decoration: underline;
+}
+
+.checkbox-label a:hover {
+  color: var(--medium-gray);
+}
+
+/* Social Login */
+.social-login {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.social-login p {
+  margin-bottom: 1rem;
+  color: var(--medium-gray);
+}
+
+.social-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.social-btn.facebook {
+  background-color: #1877f2;
+  color: var(--primary-white);
+}
+
+.social-btn.facebook:hover {
+  background-color: #166fe5;
+}
+
+.social-btn.google {
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+  border: 1px solid var(--border-color);
+}
+
+.social-btn.google:hover {
+  background-color: var(--light-gray);
+}
+
+/* Forgot Password Specific */
+.forgot-password-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: var(--primary-white);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.forgot-password-header {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+.forgot-password-header h1 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-beige);
+}
+
+.forgot-password-form {
+  padding: 2rem;
+}
+
+.back-to-login {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.back-to-login a {
+  color: var(--primary-black);
+  text-decoration: none;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.back-to-login a:hover {
+  color: var(--medium-gray);
+}
+
+/* Success Message */
+.success-message {
+  background-color: #e6f7e6;
+  color: #00aa00;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  color: #cc0000;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-container,
+  .forgot-password-container {
+    margin: 0 1rem;
+  }
+
+  .auth-form-container,
+  .forgot-password-form {
+    padding: 1.5rem;
+  }
+
+  .social-buttons {
+    flex-direction: column;
+  }
+
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-header,
+  .forgot-password-header {
+    padding: 1.5rem;
+  }
+
+  .auth-header h1,
+  .forgot-password-header h1 {
+    font-size: 1.5rem;
+  }
+}

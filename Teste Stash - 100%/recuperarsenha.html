@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueceu a Senha - Stash</title>
+    <link rel="stylesheet" href="recuperarsenha.css">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>STASH</h1>
+            </div>
+<!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="auth-section">
+            <div class="container">
+                <div class="forgot-password-container">
+                    <div class="forgot-password-header">
+                        <h1>Recuperar Senha</h1>
+                        <p>Digite seu e-mail para receber instruções de recuperação</p>
+                    </div>
+
+                    <div class="forgot-password-form">
+                        <form id="forgot-password-form-element">
+                            <div class="form-group">
+                                <label for="forgot-email">E-mail</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="forgot-email" name="email" required placeholder="     Digite seu e-mail">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn">Enviar Instruções</button>
+                        </form>
+
+                        <div class="back-to-login">
+                            <a href="login.html">
+                                <i class="fas fa-arrow-left"></i> Voltar ao Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>STASH</h3>
+                    <p>Your style, your street, your Stash</p>
+                    <div class="social-media">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> atendimentostash@support.stash.com</p>
+                    <p><i class="fab fa-whatsapp"></i> (11) 91234-5678</p>
+                    <p><i class="fas fa-phone"></i> (11) 3456-7890</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horário de Atendimento</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 9h às 14h</p>
+                    <p>Domingo: Fechado</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="devolucoes.html">Política de Trocas</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stash. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5511912345678" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls">
+        <button id="font-size-toggle" aria-label="Aumentar tamanho da fonte">
+            <i class="fas fa-text-height"></i>
+        </button>
+        <button id="text-to-speech" aria-label="Leitura de texto">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="recuperarsenha.js"></script>
+</body>
+</html>

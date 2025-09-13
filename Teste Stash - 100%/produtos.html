@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - STASH</title>
+    <meta name="description" content="Explore nossa coleção completa de roupas modernas e elegantes. Encontre o produto perfeito para você.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .filtros-container {
+            background-color: var(--color-gray-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .filtro-grupo {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .filtro-titulo {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+        
+        .filtro-opcoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+        
+        .filtro-opcao {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background-color: var(--color-secondary);
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-size: var(--font-size-sm);
+        }
+        
+        .filtro-opcao:hover,
+        .filtro-opcao.ativo {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border-color: var(--color-primary);
+        }
+        
+        .ordenacao-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .resultados-info {
+            color: var(--color-gray-medium);
+        }
+        
+        .ordenacao-select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-md);
+            background-color: var(--color-secondary);
+            cursor: pointer;
+        }
+        
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .produto-card-completo {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .produto-card-completo:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+        
+        .produto-imagem {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+        
+        .produto-badge {
+            position: absolute;
+            top: var(--spacing-sm);
+            left: var(--spacing-sm);
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-pill);
+            font-size: var(--font-size-xs);
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .produto-favorito {
+            position: absolute;
+            top: var(--spacing-sm);
+            right: var(--spacing-sm);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: var(--radius-full);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            z-index: 2;
+        }
+        
+        .produto-favorito:hover,
+        .produto-favorito.ativo {
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+        }
+        
+        .produto-info {
+            padding: var(--spacing-lg);
+        }
+        
+        .produto-categoria {
+            font-size: var(--font-size-xs);
+            color: var(--color-gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .produto-nome {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+        
+        .produto-preco {
+            font-size: var(--font-size-xl);
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .produto-acoes {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-comprar {
+            flex: 1;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 500;
+        }
+        
+        .btn-comprar:hover {
+            background-color: var(--color-gray-medium);
+            transform: translateY(-2px);
+        }
+        
+        .paginacao {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .paginacao-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--color-gray-light);
+            background-color: var(--color-secondary);
+            color: var(--color-gray-dark);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+        }
+        
+        .paginacao-btn:hover,
+        .paginacao-btn.ativo {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border-color: var(--color-primary);
+        }
+        
+        .paginacao-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 768px) {
+            .filtros-container {
+                padding: var(--spacing-md);
+            }
+            
+            .ordenacao-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .produtos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+
+            <ul class="navbar-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link active" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="action-btn" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="favoritosBadge">0</span>
+                </button>
+                <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="carrinhoBadge">0</span>
+                </button>
+            </div>
+
+            <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+            <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+            
+            <ul class="mobile-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="mobile-actions">
+                <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                    <i class="fas fa-search"></i>
+                    <span>Pesquisar</span>
+                </button>
+                <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                    <i class="fas fa-user"></i>
+                    <span>Login</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span>Favoritos</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Carrinho</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modais (mesmo da index) -->
+    <div class="modal-overlay" id="searchModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pesquisar Produtos</h3>
+                <button class="modal-close" id="closeSearchModal" aria-label="Fechar modal de pesquisa">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Digite o que você procura..." autocomplete="off">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <div class="search-suggestions">
+                    <h4>Sugestões Populares</h4>
+                    <div class="suggestion-tags">
+                        <button class="suggestion-tag" data-search="camisas">Camisas</button>
+                        <button class="suggestion-tag" data-search="camisas brancas">Camisas Brancas</button>
+                        <button class="suggestion-tag" data-search="camisas pretas">Camisas Pretas</button>
+                        <button class="suggestion-tag" data-search="stash">Stash</button>
+                        <button class="suggestion-tag" data-search="ofertas">Ofertas</button>
+                        <button class="suggestion-tag" data-search="novidades">Novidades</button>
+                    </div>
+                </div>
+
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <h4>Resultados da Pesquisa</h4>
+                    <div id="resultsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Entrar na sua conta</h3>
+                <button class="modal-close" id="closeLoginModal" aria-label="Fechar modal de login">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" class="form-input" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Senha</label>
+                        <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Lembrar de mim</label>
+                        </div>
+                        <a href="recuperar-senha.html" class="forgot-password">Esqueci minha senha</a>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+                        <button type="button" class="btn btn-secondary btn-lg" id="criarContaBtn">Criar conta</button>
+                    </div>
+                </form>
+
+                <div class="divider">
+                    <span>ou continue com</span>
+                </div>
+
+                <div class="social-login">
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                </div>
+
+                <div class="signup-link">
+                    Não tem uma conta? <a href="cadastro.html">Cadastre-se gratuitamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main style="padding-top: 100px;">
+        <div class="container">
+            <!-- Cabeçalho da Página -->
+            <div class="text-center mb-5">
+                <h1>Nossa Coleção</h1>
+                <p class="lead">Descubra peças únicas e modernas para compor seu guarda-roupa</p>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filtros-container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="filtro-grupo">
+                            <div class="filtro-titulo">Categoria</div>
+                            <div class="filtro-opcoes">
+                                <div class="filtro-opcao ativo" data-filtro="categoria" data-valor="todos">Todos</div>
+                                <div class="filtro-opcao" data-filtro="categoria" data-valor="claras">Camisas Claras</div>
+                                <div class="filtro-opcao" data-filtro="categoria" data-valor="escuras">Camisas Escuras</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="filtro-grupo">
+                            <div class="filtro-titulo">Tamanho</div>
+                            <div class="filtro-opcoes">
+                                <div class="filtro-opcao ativo" data-filtro="tamanho" data-valor="todos">Todos</div>
+                                <div class="filtro-opcao" data-filtro="tamanho" data-valor="P">P</div>
+                                <div class="filtro-opcao" data-filtro="tamanho" data-valor="M">M</div>
+                                <div class="filtro-opcao" data-filtro="tamanho" data-valor="G">G</div>
+                                <div class="filtro-opcao" data-filtro="tamanho" data-valor="GG">GG</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="filtro-grupo">
+                            <div class="filtro-titulo">Preço</div>
+                            <div class="filtro-opcoes">
+                                <div class="filtro-opcao ativo" data-filtro="preco" data-valor="todos">Todos</div>
+                                <div class="filtro-opcao" data-filtro="preco" data-valor="0-50">Até R$ 50</div>
+                                <div class="filtro-opcao" data-filtro="preco" data-valor="50-80">R$ 50 - R$ 80</div>
+                                <div class="filtro-opcao" data-filtro="preco" data-valor="80-100">R$ 80 - R$ 100</div>
+                                <div class="filtro-opcao" data-filtro="preco" data-valor="100+">Acima de R$ 100</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="filtro-grupo">
+                            <div class="filtro-titulo">Cor</div>
+                            <div class="filtro-opcoes">
+                                <div class="filtro-opcao ativo" data-filtro="cor" data-valor="todos">Todas</div>
+                                <div class="filtro-opcao" data-filtro="cor" data-valor="Branco">Branco</div>
+                                <div class="filtro-opcao" data-filtro="cor" data-valor="Preto">Preto</div>
+                                <div class="filtro-opcao" data-filtro="cor" data-valor="Azul">Azul</div>
+                                <div class="filtro-opcao" data-filtro="cor" data-valor="Cinza">Cinza</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" id="limparFiltros">Limpar Filtros</button>
+                </div>
+            </div>
+
+            <!-- Ordenação e Resultados -->
+            <div class="ordenacao-container">
+                <div class="resultados-info">
+                    <span id="totalProdutos">0</span> produtos encontrados
+                </div>
+                <div>
+                    <select class="ordenacao-select" id="ordenacao">
+                        <option value="relevancia">Mais Relevantes</option>
+                        <option value="preco-menor">Menor Preço</option>
+                        <option value="preco-maior">Maior Preço</option>
+                        <option value="nome-az">Nome A-Z</option>
+                        <option value="nome-za">Nome Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid de Produtos -->
+            <div class="produtos-grid" id="produtosGrid">
+                <!-- Produtos serão carregados via JavaScript -->
+            </div>
+
+            <!-- Paginação -->
+            <div class="paginacao" id="paginacao">
+                <!-- Paginação será gerada via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (mesmo da index) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>STASH</h5>
+                    <p>Sua loja de moda online com as melhores tendências e qualidade excepcional.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Links Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html?categoria=camisas">Camisas</a></li>
+                        <li><a href="produtos.html?categoria=calcas">Calças</a></li>
+                        <li><a href="produtos.html?categoria=acessorios">Acessórios</a></li>
+                        <li><a href="produtos.html?categoria=ofertas">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Suporte</h6>
+                    <ul class="footer-links">
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="devolucoes.html">Devoluções</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Contato</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@stash.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 STASH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="produtos.js"></script>
+</body>
+</html>

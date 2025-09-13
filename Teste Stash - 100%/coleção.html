@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coleção - Stash</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="coleção.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>STASH</h1>
+            </div>
+            <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="collection-header">
+            <div class="container">
+                <h1>Coleção</h1>
+                <p>Explore nossa linha completa de streetwear</p>
+                
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Buscar produtos...">
+                    <button id="search-button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="collection-content">
+            <div class="container">
+                <div class="collection-layout">
+                    <!-- Filters Sidebar -->
+                    <aside class="filters">
+                        <div class="filter-header">
+                            <h3>Filtros</h3>
+                            <button id="clear-filters">Limpar</button>
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div class="filter-group">
+                            <h4>Categoria</h4>
+                            <div class="filter-options">
+                                <label>
+                                    <input type="checkbox" name="category" value="camisetas"> Camisetas
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="category" value="hoodies"> Hoodies
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="category" value="calcas"> Calças
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="category" value="jaquetas"> Jaquetas
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="category" value="acessorios"> Acessórios
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Size Filter -->
+                        <div class="filter-group">
+                            <h4>Tamanho</h4>
+                            <div class="filter-options size-options">
+                                <label>
+                                    <input type="checkbox" name="size" value="PP"> PP
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="size" value="P"> P
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="size" value="M"> M
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="size" value="G"> G
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="size" value="GG"> GG
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Color Filter -->
+                        <div class="filter-group">
+                            <h4>Cor</h4>
+                            <div class="filter-options color-options">
+                                <label class="color-option">
+                                    <input type="checkbox" name="color" value="preto">
+                                    <span class="color-circle" style="background-color: #000000;"></span>
+                                    <span>Preto</span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="checkbox" name="color" value="branco">
+                                    <span class="color-circle" style="background-color: #ffffff; border: 1px solid #e0e0e0;"></span>
+                                    <span>Branco</span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="checkbox" name="color" value="bege">
+                                    <span class="color-circle" style="background-color: #f5f5dc;"></span>
+                                    <span>Bege</span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="checkbox" name="color" value="cinza">
+                                    <span class="color-circle" style="background-color: #808080;"></span>
+                                    <span>Cinza</span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="checkbox" name="color" value="vermelho">
+                                    <span class="color-circle" style="background-color: #ff0000;"></span>
+                                    <span>Vermelho</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Price Filter -->
+                        <div class="filter-group">
+                            <h4>Preço</h4>
+                            <div class="filter-options">
+                                <div class="price-range">
+                                    <input type="range" id="price-range" min="0" max="500" step="10" value="500">
+                                    <div class="price-values">
+                                        <span>R$0</span>
+                                        <span id="price-value">R$500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="apply-filters-btn">Aplicar Filtros</button>
+                    </aside>
+
+                    <!-- Products Grid -->
+                    <div class="products-section">
+                        <div class="products-header">
+                            <div class="products-count">
+                                <span>12 produtos</span>
+                            </div>
+                            <div class="products-sort">
+                                <label for="sort-select">Ordenar por:</label>
+                                <select id="sort-select">
+                                    <option value="relevance">Relevância</option>
+                                    <option value="price-asc">Preço: Menor para Maior</option>
+                                    <option value="price-desc">Preço: Maior para Menor</option>
+                                    <option value="newest">Mais Recentes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="products-grid">
+                            <!-- Product Card 1 -->
+                            <div class="product-card" data-id="1" data-category="Moletom" data-price="149.90">
+                                <div class="product-image">
+                                    <img src="/img/Blusa1-Branca.png" alt="Hoodie Urbano">
+                                    <div class="product-tags">
+                                        <span class="product-tag sale">-20%</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Blusa White Stash</h3>
+                                    <p class="product-category">Moletom</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$149,90</span>
+                                        <span class="old-price">R$189,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 2 -->
+                            <div class="product-card" data-id="2" data-category="camisetas" data-price="79.90">
+                                <div class="product-image">
+                                    <img src="/img/Camisa2-Branca.png" alt="Camiseta Estampada">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Camiseta Estampada</h3>
+                                    <p class="product-category">Camisetas</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$79,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 3 -->
+                            <div class="product-card" data-id="3" data-category="calcas" data-price="199.90">
+                                <div class="product-image">
+                                    <img src="/img/CalcaNumber2 - Bege.png" alt="Calça Cargo">
+                                    <div class="product-tags">
+                                        <span class="product-tag new">Novo</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Calça Cargo</h3>
+                                    <p class="product-category">Calças</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$199,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 4 -->
+                            <div class="product-card" data-id="4" data-category="jaquetas" data-price="299.90">
+                                <div class="product-image">
+                                    <img src="/img/JaquetaNumber1 - Bege.png" alt="Jaqueta BomberStash">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Jaqueta BomberStash</h3>
+                                    <p class="product-category">Jaquetas</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$299,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 5 -->
+                            <div class="product-card" data-id="5" data-category="acessorios" data-price="59.90">
+                                <div class="product-image">
+                                    <img src="/img/Bone1 - Creme.png" alt="Boné Stash Loyal">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Boné Stash Loyal</h3>
+                                    <p class="product-category">Acessórios</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$69,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 6 -->
+                            <div class="product-card" data-id="6" data-category="camisetas" data-price="89.90">
+                                <div class="product-image">
+                                    <img src="/img/Camisa8-Preto.png" alt="Camiseta BlackTuli">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Camiseta Black Tuli</h3>
+                                    <p class="product-category">Camisetas</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$89,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 7 -->
+                            <div class="product-card" data-id="7" data-category="Moletom" data-price="179.90">
+                                <div class="product-image">
+                                    <img src="/img/Blusa4-AzulEscuro.png" alt="Moletom Sunny Nigth">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Moletom Sunny Nigth</h3>
+                                    <p class="product-category">Moletom</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$179,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 8 -->
+                            <div class="product-card" data-id="8" data-category="calcas" data-price="159.90">
+                                <div class="product-image">
+                                    <img src="/img/CalcaNumber4 - VerdeEscura.png" alt="Calça Sport">
+                                    <div class="product-tags">
+                                        <span class="product-tag sale">-15%</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Calça Sport Life</h3>
+                                    <p class="product-category">Calças</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$99,90</span>
+                                        <span class="old-price">R$119,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 9 -->
+                            <div class="product-card" data-id="9" data-category="acessorios" data-price="49.90">
+                                <div class="product-image">
+                                    <img src="/img/Gorro1 - Stash Cinza.png" alt="Gorro Street">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Gorro Street</h3>
+                                    <p class="product-category">Acessórios</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$49,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 10 -->
+                            <div class="product-card" data-id="10" data-category="jaquetas" data-price="259.90">
+                                <div class="product-image">
+                                    <img src="/img/Corta-Vento1 - Retrô.png" alt="Jaqueta Corta-Vento">
+                                    <div class="product-tags">
+                                        <span class="product-tag new">Novo</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Corta-Vento Retrô</h3>
+                                    <p class="product-category">Jaquetas</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$259,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 11 -->
+                            <div class="product-card" data-id="11" data-category="camisetas" data-price="69.90">
+                                <div class="product-image">
+                                    <img src="/img/Camisa4-Preto.png" alt="Camiseta Longline">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Camiseta Longline</h3>
+                                    <p class="product-category">Camisetas</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$69,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 12 -->
+                            <div class="product-card" data-id="12" data-category="Moletom" data-price="169.90">
+                                <div class="product-image">
+                                    <img src="/img/Blusa3-CinzaEscura.png" alt="Moletom Básico">
+                                    <div class="product-actions">
+                                        <button class="wishlist-btn" aria-label="Adicionar aos favoritos">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                        <button class="quickview-btn" aria-label="Visualização rápida">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title">Moletom Spike</h3>
+                                    <p class="product-category">Moletom</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$169,90</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pagination">
+                            <button class="pagination-btn active">1</button>
+                            <button class="pagination-btn">2</button>
+                            <button class="pagination-btn">3</button>
+                            <button class="pagination-btn next">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>STASH</h3>
+                    <p>Your style, your street, your Stash</p>
+                    <div class="social-media">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> atendimentostash@support.stash.com</p>
+                    <p><i class="fab fa-whatsapp"></i> (11) 91234-5678</p>
+                    <p><i class="fas fa-phone"></i> (11) 3456-7890</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horário de Atendimento</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 9h às 14h</p>
+                    <p>Domingo: Fechado</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="devolucoes.html">Política de Trocas</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stash. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5511912345678" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls">
+        <button id="font-size-toggle" aria-label="Aumentar tamanho da fonte">
+            <i class="fas fa-text-height"></i>
+        </button>
+        <button id="text-to-speech" aria-label="Leitura de texto">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quickview-modal" id="quickview-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-body">
+                <div class="product-quickview">
+                    <div class="product-image">
+                       <img src="/img/Blusa2-AzulClaro.png" alt="Product Image" id="modal-product-image">
+                    </div>
+                    <div class="product-details">
+                        <h2 id="modal-product-title">Nome do Produto</h2>
+                        <p class="product-category" id="modal-product-category">Categoria</p>
+                        <div class="product-price">
+                            <span class="current-price" id="modal-product-price">R$0,00</span>
+                            <span class="old-price" id="modal-product-old-price">R$0,00</span>
+                        </div>
+                        <div class="product-description">
+                            <p>Descrição do produto com detalhes sobre material, estilo e características.</p>
+                        </div>
+                        <div class="product-sizes">
+                            <h4>Tamanho</h4>
+                            <div class="size-options">
+                                <button class="size-btn">PP</button>
+                                <button class="size-btn">P</button>
+                                <button class="size-btn active">M</button>
+                                <button class="size-btn">G</button>
+                                <button class="size-btn">GG</button>
+                            </div>
+                        </div>
+                        <div class="product-quantity">
+                            <h4>Quantidade</h4>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" value="1" min="1" max="10">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i> Adicionar aos Favoritos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="coleção.js"></script>
+</body>
+</html>

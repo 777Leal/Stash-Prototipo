@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Trocas e Devoluções - Stash</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="termosP.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>STASH</h1>
+            </div>
+            
+            <!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+            <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+            <span>STASH</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <ul class="navbar-nav" role="menubar">
+            <li class="nav-item" role="none">
+                <a class="nav-link active" href="index.html" role="menuitem">Home</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+            </li>
+        </ul>
+
+        <!-- INTERAÇÃO DOS BOTÕES DA NAVBAR -->
+        <div class="navbar-actions">
+            <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                <a href="pesquisar.html">
+                    <i class="fas fa-search" style="color: black;"></i>
+                </a>
+            </button>
+
+            <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                <a href="login.html">
+                    <i class="fas fa-user" style="color: black;"></i>
+                </a>
+            </button>
+
+            <button class="action-btn" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                <a href="favoritos.html">
+                    <i class="fas fa-heart" style="color: black;"></i>
+                </a>
+                <span class="badge" id="favoritosBadge">0</span>
+            </button>
+
+            <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                <a href="carrinho.html">
+                    <i class="fas fa-shopping-cart" style="color: black;"></i>
+                </a>
+                <span class="badge" id="carrinhoBadge">0</span>
+            </button>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+        <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+
+        <ul class="mobile-nav" role="menubar">
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="index.html" role="menuitem">Home</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+            </li>
+        </ul>
+
+        <div class="mobile-actions">
+            <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                <i class="fas fa-search" style="color: black;"></i>
+                <span>Pesquisar</span>
+            </button>
+            <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                <i class="fas fa-user" style="color: black;"></i>
+                <span>Login</span>
+            </button>
+            <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                <i class="fas fa-heart" style="color: black;"></i>
+                <span>Favoritos</span>
+            </button>
+            <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                <i class="fas fa-shopping-cart" style="color: black;"></i>
+                <span>Carrinho</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="legal-section">
+            <div class="container">
+                <div class="legal-header">
+                    <h1>Política de Trocas e Devoluções</h1>
+                    <p class="last-updated">Última atualização: 15 de dezembro de 2024</p>
+                </div>
+
+                <div class="legal-content">
+                    <div class="legal-nav">
+                        <h3>Índice</h3>
+                        <ul>
+                            <li><a href="#direito-arrependimento">1. Direito de Arrependimento</a></li>
+                            <li><a href="#condicoes-troca">2. Condições para Troca</a></li>
+                            <li><a href="#como-solicitar">3. Como Solicitar</a></li>
+                            <li><a href="#processo-troca">4. Processo de Troca</a></li>
+                            <li><a href="#reembolso">5. Reembolso</a></li>
+                            <li><a href="#produtos-defeituosos">6. Produtos Defeituosos</a></li>
+                            <li><a href="#custos-envio">7. Custos de Envio</a></li>
+                            <li><a href="#excecoes">8. Exceções</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-text">
+                        <section id="direito-arrependimento">
+                            <h2>1. Direito de Arrependimento</h2>
+                            <p>De acordo com o Código de Defesa do Consumidor, você tem o direito de desistir da compra em até <strong>7 dias corridos</strong> a partir do recebimento do produto, sem necessidade de justificativa.</p>
+                            
+                            <div class="highlight-box">
+                                <p><strong>Importante:</strong> O prazo de 7 dias é contado a partir da data de recebimento do produto, não da data da compra.</p>
+                            </div>
+
+                            <p>Para exercer este direito, o produto deve estar nas mesmas condições em que foi entregue, com etiquetas originais e embalagem.</p>
+                        </section>
+
+                        <section id="condicoes-troca">
+                            <h2>2. Condições para Troca e Devolução</h2>
+                            <p>Para que sua solicitação seja aceita, o produto deve atender aos seguintes critérios:</p>
+                            
+                            <h3>2.1 Condições Obrigatórias</h3>
+                            <ul>
+                                <li>Produto não usado, lavado ou danificado</li>
+                                <li>Etiquetas originais anexadas</li>
+                                <li>Embalagem original preservada</li>
+                                <li>Solicitação feita dentro do prazo</li>
+                                <li>Nota fiscal ou comprovante de compra</li>
+                            </ul>
+
+                            <h3>2.2 Prazos</h3>
+                            <table class="legal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de Solicitação</th>
+                                        <th>Prazo</th>
+                                        <th>Observações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Arrependimento</td>
+                                        <td>7 dias corridos</td>
+                                        <td>A partir do recebimento</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Troca por tamanho</td>
+                                        <td>30 dias corridos</td>
+                                        <td>Produto sem uso</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Produto defeituoso</td>
+                                        <td>90 dias</td>
+                                        <td>Garantia legal</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section id="como-solicitar">
+                            <h2>3. Como Solicitar Troca ou Devolução</h2>
+                            <p>Para solicitar uma troca ou devolução, siga estes passos:</p>
+
+                            <h3>3.1 Canais de Atendimento</h3>
+                            <ul>
+                                <li><strong>WhatsApp:</strong> (11) 91234-5678</li>
+                                <li><strong>E-mail:</strong> trocas@stash.com</li>
+                                <li><strong>Telefone:</strong> (11) 3456-7890</li>
+                                <li><strong>Formulário online:</strong> Disponível em sua conta</li>
+                            </ul>
+
+                            <h3>3.2 Informações Necessárias</h3>
+                            <p>Tenha em mãos as seguintes informações:</p>
+                            <ul>
+                                <li>Número do pedido</li>
+                                <li>CPF do comprador</li>
+                                <li>Motivo da troca/devolução</li>
+                                <li>Fotos do produto (se aplicável)</li>
+                            </ul>
+
+                            <h3>3.3 Análise da Solicitação</h3>
+                            <p>Nossa equipe analisará sua solicitação em até <strong>2 dias úteis</strong> e entrará em contato com as instruções para envio.</p>
+                        </section>
+
+                        <section id="processo-troca">
+                            <h2>4. Processo de Troca</h2>
+                            <h3>4.1 Envio do Produto</h3>
+                            <p>Após aprovação da solicitação:</p>
+                            <ul>
+                                <li>Embale o produto com cuidado</li>
+                                <li>Inclua a nota fiscal</li>
+                                <li>Use a etiqueta de envio fornecida</li>
+                                <li>Entregue nos Correios ou agende coleta</li>
+                            </ul>
+
+                            <h3>4.2 Recebimento e Análise</h3>
+                            <p>Quando recebermos o produto:</p>
+                            <ul>
+                                <li>Verificaremos as condições do item</li>
+                                <li>Confirmaremos se atende aos critérios</li>
+                                <li>Processaremos a troca ou reembolso</li>
+                                <li>Enviaremos confirmação por e-mail</li>
+                            </ul>
+
+                            <h3>4.3 Prazos de Processamento</h3>
+                            <ul>
+                                <li><strong>Análise do produto:</strong> Até 3 dias úteis</li>
+                                <li><strong>Envio do novo produto:</strong> Até 5 dias úteis</li>
+                                <li><strong>Reembolso:</strong> Até 10 dias úteis</li>
+                            </ul>
+                        </section>
+
+                        <section id="reembolso">
+                            <h2>5. Reembolso</h2>
+                            <h3>5.1 Formas de Reembolso</h3>
+                            <p>O reembolso será feito preferencialmente na mesma forma de pagamento utilizada na compra:</p>
+                            <ul>
+                                <li><strong>Cartão de crédito:</strong> Estorno na fatura (1-2 faturas)</li>
+                                <li><strong>Cartão de débito:</strong> Depósito na conta (até 10 dias úteis)</li>
+                                <li><strong>PIX:</strong> Transferência imediata</li>
+                                <li><strong>Boleto:</strong> Depósito na conta informada</li>
+                            </ul>
+
+                            <h3>5.2 Valor do Reembolso</h3>
+                            <p>O valor reembolsado incluirá:</p>
+                            <ul>
+                                <li>Valor do produto</li>
+                                <li>Frete pago (em casos de arrependimento)</li>
+                                <li>Impostos e taxas</li>
+                            </ul>
+
+                            <div class="warning-box">
+                                <p><strong>Atenção:</strong> Em caso de troca por tamanho, o frete de retorno pode ser por conta do cliente, exceto se o erro for nosso.</p>
+                            </div>
+                        </section>
+
+                        <section id="produtos-defeituosos">
+                            <h2>6. Produtos Defeituosos ou com Problemas</h2>
+                            <h3>6.1 Garantia Legal</h3>
+                            <p>Produtos com defeito de fabricação têm garantia de <strong>90 dias</strong> conforme o Código de Defesa do Consumidor.</p>
+
+                            <h3>6.2 Procedimento Especial</h3>
+                            <p>Para produtos defeituosos:</p>
+                            <ul>
+                                <li>Entre em contato imediatamente</li>
+                                <li>Envie fotos detalhadas do defeito</li>
+                                <li>Não é necessário aguardar prazo de análise</li>
+                                <li>Frete de retorno por nossa conta</li>
+                                <li>Prioridade no processamento</li>
+                            </ul>
+
+                            <h3>6.3 Soluções Oferecidas</h3>
+                            <ul>
+                                <li>Troca por produto idêntico</li>
+                                <li>Troca por produto similar</li>
+                                <li>Reembolso integral</li>
+                                <li>Reparo (quando possível)</li>
+                            </ul>
+                        </section>
+
+                        <section id="custos-envio">
+                            <h2>7. Custos de Envio</h2>
+                            <h3>7.1 Frete de Retorno</h3>
+                            <table class="legal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Motivo da Troca</th>
+                                        <th>Frete de Retorno</th>
+                                        <th>Frete de Reenvio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Arrependimento (7 dias)</td>
+                                        <td>Por nossa conta</td>
+                                        <td>Por nossa conta</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Produto defeituoso</td>
+                                        <td>Por nossa conta</td>
+                                        <td>Por nossa conta</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Erro nosso (produto/tamanho)</td>
+                                        <td>Por nossa conta</td>
+                                        <td>Por nossa conta</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Troca por tamanho</td>
+                                        <td>Por conta do cliente</td>
+                                        <td>Por nossa conta</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>7.2 Etiqueta de Retorno</h3>
+                            <p>Quando o frete for por nossa conta, enviaremos uma etiqueta pré-paga para facilitar o envio.</p>
+                        </section>
+
+                        <section id="excecoes">
+                            <h2>8. Exceções e Produtos Não Elegíveis</h2>
+                            <h3>8.1 Produtos Não Elegíveis para Troca</h3>
+                            <ul>
+                                <li>Produtos personalizados ou sob encomenda</li>
+                                <li>Itens em promoção especial (quando especificado)</li>
+                                <li>Produtos com sinais de uso, lavagem ou danos</li>
+                                <li>Itens sem etiquetas originais</li>
+                                <li>Produtos de higiene pessoal (quando aplicável)</li>
+                            </ul>
+
+                            <h3>8.2 Situações Especiais</h3>
+                            <p>Em casos excepcionais, nossa equipe pode avaliar situações não cobertas por esta política. Entre em contato para discussão individual.</p>
+                        </section>
+
+                        <div class="legal-footer">
+                            <p>Esta política está em conformidade com o Código de Defesa do Consumidor brasileiro. Em caso de dúvidas, nossa equipe de atendimento está disponível para esclarecimentos.</p>
+                            <p>Nosso objetivo é garantir sua satisfação total com os produtos Stash. Trabalhamos continuamente para melhorar nossos processos e oferecer a melhor experiência de compra.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>STASH</h3>
+                    <p>Your style, your street, your Stash</p>
+                    <div class="social-media">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> atendimentostash@support.stash.com</p>
+                    <p><i class="fab fa-whatsapp"></i> (11) 91234-5678</p>
+                    <p><i class="fas fa-phone"></i> (11) 3456-7890</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horário de Atendimento</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 9h às 14h</p>
+                    <p>Domingo: Fechado</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="devulucoes.html">Política de Trocas</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stash. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5511912345678" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls">
+        <button id="font-size-toggle" aria-label="Aumentar tamanho da fonte">
+            <i class="fas fa-text-height"></i>
+        </button>
+        <button id="text-to-speech" aria-label="Leitura de texto">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

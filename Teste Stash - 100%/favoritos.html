@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos - STASH</title>
+    <meta name="description" content="Seus produtos favoritos na STASH. Gerencie sua lista de desejos e encontre facilmente os produtos que você mais gosta.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .favoritos-hero {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f0f0f0" width="1200" height="400"/><path fill="%23e0e0e0" d="M0,200 Q300,100 600,200 T1200,200 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+            color: var(--color-secondary);
+            margin-top: 80px;
+        }
+        
+        .favoritos-section {
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .favoritos-empty {
+            text-align: center;
+            padding: var(--spacing-3xl) 0;
+            color: var(--color-gray-medium);
+        }
+        
+        .favoritos-empty i {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-light);
+        }
+        
+        .favoritos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .favorito-card {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+        
+        .favorito-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .favorito-image {
+            width: 100%;
+            height: 250px;
+            background-color: var(--color-gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .favorito-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .favorito-image .placeholder {
+            color: var(--color-gray-medium);
+            font-size: 3rem;
+        }
+        
+        .favorito-badge {
+            position: absolute;
+            top: var(--spacing-sm);
+            left: var(--spacing-sm);
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+        }
+        
+        .favorito-content {
+            padding: var(--spacing-lg);
+        }
+        
+        .favorito-categoria {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .favorito-nome {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+        
+        .favorito-preco {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .preco-atual {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        
+        .preco-original {
+            font-size: var(--font-size-md);
+            color: var(--color-gray-medium);
+            text-decoration: line-through;
+        }
+        
+        .favorito-avaliacoes {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .estrelas {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .estrela {
+            color: var(--color-accent);
+            font-size: var(--font-size-sm);
+        }
+        
+        .num-avaliacoes {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-medium);
+        }
+        
+        .favorito-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-carrinho {
+            flex: 1;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .btn-carrinho:hover {
+            background-color: var(--color-gray-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-remover {
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-remover:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .favoritos-stats {
+            background-color: var(--color-gray-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .stats-item {
+            text-align: center;
+        }
+        
+        .stats-number {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+        }
+        
+        .stats-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-medium);
+        }
+        
+        .favoritos-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .btn-limpar-favoritos {
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 500;
+        }
+        
+        .btn-limpar-favoritos:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn-adicionar-todos {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 500;
+        }
+        
+        .btn-adicionar-todos:hover {
+            background-color: var(--color-gray-dark);
+        }
+        
+        .filtros-favoritos {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .filtro-btn {
+            background-color: var(--color-secondary);
+            border: 2px solid var(--color-gray-light);
+            color: var(--color-gray-dark);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 500;
+        }
+        
+        .filtro-btn.active {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+        
+        .filtro-btn:hover {
+            border-color: var(--color-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .favoritos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: var(--spacing-lg);
+            }
+            
+            .favoritos-stats {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .favoritos-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filtros-favoritos {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+
+            <ul class="navbar-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="action-btn active" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="favoritosBadge">0</span>
+                </button>
+                <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="carrinhoBadge">0</span>
+                </button>
+            </div>
+
+            <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+            <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+            
+            <ul class="mobile-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="mobile-actions">
+                <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                    <i class="fas fa-search"></i>
+                    <span>Pesquisar</span>
+                </button>
+                <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                    <i class="fas fa-user"></i>
+                    <span>Login</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span>Favoritos</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Carrinho</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modais -->
+    <div class="modal-overlay" id="searchModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pesquisar Produtos</h3>
+                <button class="modal-close" id="closeSearchModal" aria-label="Fechar modal de pesquisa">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Digite o que você procura..." autocomplete="off">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <div class="search-suggestions">
+                    <h4>Sugestões Populares</h4>
+                    <div class="suggestion-tags">
+                        <button class="suggestion-tag" data-search="camisas">Camisas</button>
+                        <button class="suggestion-tag" data-search="camisas brancas">Camisas Brancas</button>
+                        <button class="suggestion-tag" data-search="camisas pretas">Camisas Pretas</button>
+                        <button class="suggestion-tag" data-search="stash">Stash</button>
+                        <button class="suggestion-tag" data-search="ofertas">Ofertas</button>
+                        <button class="suggestion-tag" data-search="novidades">Novidades</button>
+                    </div>
+                </div>
+
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <h4>Resultados da Pesquisa</h4>
+                    <div id="resultsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Entrar na sua conta</h3>
+                <button class="modal-close" id="closeLoginModal" aria-label="Fechar modal de login">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" class="form-input" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Senha</label>
+                        <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Lembrar de mim</label>
+                        </div>
+                        <a href="recuperar-senha.html" class="forgot-password">Esqueci minha senha</a>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+                        <button type="button" class="btn btn-secondary btn-lg" id="criarContaBtn">Criar conta</button>
+                    </div>
+                </form>
+
+                <div class="divider">
+                    <span>ou continue com</span>
+                </div>
+
+                <div class="social-login">
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                </div>
+
+                <div class="signup-link">
+                    Não tem uma conta? <a href="cadastro.html">Cadastre-se gratuitamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="favoritos-hero">
+        <div class="container">
+            <h1>Meus Favoritos</h1>
+            <p class="lead">Seus produtos favoritos em um só lugar</p>
+        </div>
+    </section>
+
+    <!-- Favoritos Section -->
+    <section class="favoritos-section">
+        <div class="container">
+            <!-- Estatísticas dos Favoritos -->
+            <div class="favoritos-stats" id="favoritosStats">
+                <div class="stats-item">
+                    <span class="stats-number" id="totalFavoritos">0</span>
+                    <span class="stats-label">Produtos Favoritos</span>
+                </div>
+                <div class="stats-item">
+                    <span class="stats-number" id="valorTotalFavoritos">R$ 0,00</span>
+                    <span class="stats-label">Valor Total</span>
+                </div>
+                <div class="stats-item">
+                    <span class="stats-number" id="categoriasFavoritas">0</span>
+                    <span class="stats-label">Categorias</span>
+                </div>
+            </div>
+
+            <!-- Ações dos Favoritos -->
+            <div class="favoritos-actions" id="favoritosActions" style="display: none;">
+                <div class="filtros-favoritos">
+                    <button class="filtro-btn active" data-categoria="todos">Todos</button>
+                    <button class="filtro-btn" data-categoria="claras">Camisas Claras</button>
+                    <button class="filtro-btn" data-categoria="escuras">Camisas Escuras</button>
+                </div>
+                <div>
+                    <button class="btn-adicionar-todos" onclick="adicionarTodosAoCarrinho()">
+                        <i class="fas fa-shopping-cart"></i> Adicionar Todos ao Carrinho
+                    </button>
+                    <button class="btn-limpar-favoritos" onclick="limparFavoritos()">
+                        <i class="fas fa-trash"></i> Limpar Favoritos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lista de Favoritos -->
+            <div id="favoritosContainer">
+                <div class="favoritos-empty" id="favoritosEmpty">
+                    <i class="fas fa-heart-broken"></i>
+                    <h3>Sua lista de favoritos está vazia</h3>
+                    <p>Adicione produtos aos seus favoritos para vê-los aqui</p>
+                    <a href="produtos.html" class="btn btn-primary">
+                        <i class="fas fa-shopping-bag"></i> Explorar Produtos
+                    </a>
+                </div>
+                <div class="favoritos-grid" id="favoritosGrid" style="display: none;">
+                    <!-- Produtos favoritos serão carregados aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>STASH</h5>
+                    <p>Sua loja de moda online com as melhores tendências e qualidade excepcional.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Links Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html?categoria=camisas">Camisas</a></li>
+                        <li><a href="produtos.html?categoria=calcas">Calças</a></li>
+                        <li><a href="produtos.html?categoria=acessorios">Acessórios</a></li>
+                        <li><a href="produtos.html?categoria=ofertas">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Suporte</h6>
+                    <ul class="footer-links">
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="devolucoes.html">Devoluções</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Contato</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@stash.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 STASH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // ===================================
+        // FAVORITOS PAGE SPECIFIC FUNCTIONS
+        // ===================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarFavoritos();
+            configurarFiltrosFavoritos();
+        });
+
+        function carregarFavoritos() {
+            const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            const favoritosContainer = document.getElementById('favoritosContainer');
+            const favoritosEmpty = document.getElementById('favoritosEmpty');
+            const favoritosGrid = document.getElementById('favoritosGrid');
+            const favoritosActions = document.getElementById('favoritosActions');
+
+            if (favoritos.length === 0) {
+                favoritosEmpty.style.display = 'block';
+                favoritosGrid.style.display = 'none';
+                favoritosActions.style.display = 'none';
+                atualizarEstatisticasFavoritos(favoritos);
+                return;
+            }
+
+            favoritosEmpty.style.display = 'none';
+            favoritosGrid.style.display = 'grid';
+            favoritosActions.style.display = 'flex';
+
+            // Buscar dados completos dos produtos
+            const produtosFavoritos = favoritos.map(favId => {
+                return produtosData.find(produto => produto.id === favId);
+            }).filter(produto => produto !== undefined);
+
+            renderizarFavoritos(produtosFavoritos);
+            atualizarEstatisticasFavoritos(produtosFavoritos);
+        }
+
+        function renderizarFavoritos(produtos) {
+            const favoritosGrid = document.getElementById('favoritosGrid');
+            
+            favoritosGrid.innerHTML = produtos.map(produto => {
+                const desconto = produto.precoOriginal ? Math.round(((produto.precoOriginal - produto.preco) / produto.precoOriginal) * 100) : 0;
+                
+                return `
+                    <div class="favorito-card" data-categoria="${produto.categoria}">
+                        <div class="favorito-image">
+                            ${produto.imagem ? 
+                                `<img src="${produto.imagem}" alt="${produto.nome}">` : 
+                                `<i class="fas fa-tshirt placeholder"></i>`
+                            }
+                            ${desconto > 0 ? `<div class="favorito-badge">-${desconto}%</div>` : ''}
+                        </div>
+                        <div class="favorito-content">
+                            <div class="favorito-categoria">${obterNomeCategoria(produto.categoria)}</div>
+                            <h3 class="favorito-nome">${produto.nome}</h3>
+                            <div class="favorito-preco">
+                                <span class="preco-atual">R$ ${produto.preco.toFixed(2).replace('.', ',')}</span>
+                                ${produto.precoOriginal ? 
+                                    `<span class="preco-original">R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : 
+                                    ''
+                                }
+                            </div>
+                            <div class="favorito-avaliacoes">
+                                <div class="estrelas">
+                                    ${gerarEstrelas(produto.avaliacao || 5)}
+                                </div>
+                                <span class="num-avaliacoes">(${produto.numAvaliacoes || 0} avaliações)</span>
+                            </div>
+                            <div class="favorito-actions">
+                                <button class="btn-carrinho" onclick="adicionarAoCarrinho(${produto.id})">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Adicionar ao Carrinho
+                                </button>
+                                <button class="btn-remover" onclick="removerDosFavoritos(${produto.id})" title="Remover dos favoritos">
+                                    <i class="fas fa-heart-broken"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function atualizarEstatisticasFavoritos(produtos) {
+            const totalFavoritos = produtos.length;
+            const valorTotal = produtos.reduce((total, produto) => total + produto.preco, 0);
+            const categorias = [...new Set(produtos.map(produto => produto.categoria))].length;
+
+            document.getElementById('totalFavoritos').textContent = totalFavoritos;
+            document.getElementById('valorTotalFavoritos').textContent = `R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('categoriasFavoritas').textContent = categorias;
+        }
+
+        function configurarFiltrosFavoritos() {
+            const filtros = document.querySelectorAll('.filtro-btn');
+            
+            filtros.forEach(filtro => {
+                filtro.addEventListener('click', function() {
+                    // Remover classe ativa de todos os filtros
+                    filtros.forEach(f => f.classList.remove('active'));
+                    
+                    // Adicionar classe ativa ao filtro clicado
+                    this.classList.add('active');
+                    
+                    // Filtrar produtos
+                    const categoria = this.dataset.categoria;
+                    filtrarFavoritos(categoria);
+                });
+            });
+        }
+
+        function filtrarFavoritos(categoria) {
+            const cards = document.querySelectorAll('.favorito-card');
+            
+            cards.forEach(card => {
+                if (categoria === 'todos' || card.dataset.categoria === categoria) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function adicionarTodosAoCarrinho() {
+            const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            let adicionados = 0;
+            
+            favoritos.forEach(favId => {
+                const produto = produtosData.find(p => p.id === favId);
+                if (produto) {
+                    adicionarAoCarrinho(produto.id);
+                    adicionados++;
+                }
+            });
+            
+            if (adicionados > 0) {
+                mostrarNotificacao(`${adicionados} produtos adicionados ao carrinho!`, 'sucesso');
+            }
+        }
+
+        function limparFavoritos() {
+            if (confirm('Tem certeza que deseja remover todos os produtos dos favoritos?')) {
+                localStorage.setItem('favoritos', JSON.stringify([]));
+                atualizarContadorFavoritos();
+                carregarFavoritos();
+                mostrarNotificacao('Todos os favoritos foram removidos!', 'sucesso');
+            }
+        }
+
+        function removerDosFavoritos(produtoId) {
+            let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            favoritos = favoritos.filter(id => id !== produtoId);
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+            
+            atualizarContadorFavoritos();
+            carregarFavoritos();
+            mostrarNotificacao('Produto removido dos favoritos!', 'sucesso');
+        }
+    </script>
+</body>
+</html>
+

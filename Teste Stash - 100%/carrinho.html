@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras - STASH</title>
+    <meta name="description" content="Revise seus produtos selecionados e finalize sua compra na STASH.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .carrinho-container {
+            min-height: 60vh;
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .carrinho-vazio {
+            text-align: center;
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .carrinho-vazio i {
+            font-size: 4rem;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .item-carrinho {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            transition: all var(--transition-normal);
+        }
+        
+        .item-carrinho:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .item-imagem {
+            width: 120px;
+            height: 120px;
+            background-color: var(--color-gray-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-nome {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+        
+        .item-detalhes {
+            color: var(--color-gray-medium);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .item-preco {
+            font-size: var(--font-size-xl);
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        
+        .item-controles {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .quantidade-controle {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            background-color: var(--color-gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-xs);
+        }
+        
+        .quantidade-btn {
+            background: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+        }
+        
+        .quantidade-btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+        
+        .quantidade-input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            background: none;
+            font-weight: 600;
+        }
+        
+        .btn-remover {
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-size: var(--font-size-sm);
+        }
+        
+        .btn-remover:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .resumo-pedido {
+            background-color: var(--color-gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-xl);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .resumo-titulo {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+        }
+        
+        .resumo-linha {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+        }
+        
+        .resumo-linha.total {
+            border-top: 2px solid var(--color-gray-medium);
+            padding-top: var(--spacing-md);
+            font-weight: bold;
+            font-size: var(--font-size-lg);
+        }
+        
+        .cupom-desconto {
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .cupom-input {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+        
+        .cupom-input input {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .btn-cupom {
+            background-color: var(--color-blue);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+        
+        .btn-cupom:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-finalizar {
+            width: 100%;
+            background-color: var(--color-success);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .btn-finalizar:hover {
+            background-color: #229954;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-continuar {
+            width: 100%;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            margin-bottom: var(--spacing-md);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-continuar:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+        
+        .frete-calculadora {
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-gray-light);
+        }
+        
+        .frete-input {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+        
+        .frete-input input {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .opcoes-frete {
+            margin-top: var(--spacing-md);
+        }
+        
+        .opcao-frete {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--spacing-xs);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+        
+        .opcao-frete:hover,
+        .opcao-frete.selecionada {
+            background-color: var(--color-gray-light);
+            border-color: var(--color-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .item-carrinho {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .item-imagem {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .item-controles {
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+            }
+            
+            .resumo-pedido {
+                position: static;
+                margin-top: var(--spacing-xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+            <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+            <span>STASH</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <ul class="navbar-nav" role="menubar">
+            <li class="nav-item" role="none">
+                <a class="nav-link active" href="index.html" role="menuitem">Home</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+            </li>
+        </ul>
+
+        <!-- INTERAÇÃO DOS BOTÕES DA NAVBAR -->
+        <div class="navbar-actions">
+            <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                <a href="pesquisar.html">
+                    <i class="fas fa-search" style="color: black;"></i>
+                </a>
+            </button>
+
+            <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                <a href="login.html">
+                    <i class="fas fa-user" style="color: black;"></i>
+                </a>
+            </button>
+
+            <button class="action-btn" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                <a href="favoritos.html">
+                    <i class="fas fa-heart" style="color: black;"></i>
+                </a>
+                <span class="badge" id="favoritosBadge">0</span>
+            </button>
+
+            <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                <a href="carrinho.html">
+                    <i class="fas fa-shopping-cart" style="color: black;"></i>
+                </a>
+                <span class="badge" id="carrinhoBadge">0</span>
+            </button>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+        <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+
+        <ul class="mobile-nav" role="menubar">
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="index.html" role="menuitem">Home</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+            </li>
+        </ul>
+
+        <div class="mobile-actions">
+            <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                <i class="fas fa-search" style="color: black;"></i>
+                <span>Pesquisar</span>
+            </button>
+            <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                <i class="fas fa-user" style="color: black;"></i>
+                <span>Login</span>
+            </button>
+            <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                <i class="fas fa-heart" style="color: black;"></i>
+                <span>Favoritos</span>
+            </button>
+            <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                <i class="fas fa-shopping-cart" style="color: black;"></i>
+                <span>Carrinho</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+    <!-- Modais -->
+    <div class="modal-overlay" id="searchModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pesquisar Produtos</h3>
+                <button class="modal-close" id="closeSearchModal" aria-label="Fechar modal de pesquisa">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Digite o que você procura..." autocomplete="off">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <div class="search-suggestions">
+                    <h4>Sugestões Populares</h4>
+                    <div class="suggestion-tags">
+                        <button class="suggestion-tag" data-search="camisas">Camisas</button>
+                        <button class="suggestion-tag" data-search="camisas brancas">Camisas Brancas</button>
+                        <button class="suggestion-tag" data-search="camisas pretas">Camisas Pretas</button>
+                        <button class="suggestion-tag" data-search="stash">Stash</button>
+                        <button class="suggestion-tag" data-search="ofertas">Ofertas</button>
+                        <button class="suggestion-tag" data-search="novidades">Novidades</button>
+                    </div>
+                </div>
+
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <h4>Resultados da Pesquisa</h4>
+                    <div id="resultsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Entrar na sua conta</h3>
+                <button class="modal-close" id="closeLoginModal" aria-label="Fechar modal de login">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" class="form-input" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Senha</label>
+                        <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Lembrar de mim</label>
+                        </div>
+                        <a href="recuperarsenha.html" class="forgot-password">Esqueci minha senha</a>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+                        <button type="button" class="btn btn-secondary btn-lg" id="criarContaBtn">Criar conta</button>
+                    </div>
+                </form>
+
+                <div class="divider">
+                    <span>ou continue com</span>
+                </div>
+
+                <div class="social-login">
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                </div>
+
+                <div class="signup-link">
+                    Não tem uma conta? <a href="cadastro.html">Cadastre-se gratuitamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="carrinho-container" style="padding-top: 100px;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1>Carrinho de Compras</h1>
+                <p class="lead">Revise seus produtos e finalize sua compra</p>
+            </div>
+
+            <div id="carrinhoConteudo">
+                <!-- Conteúdo será carregado via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>STASH</h5>
+                    <p>Sua loja de moda online com as melhores tendências e qualidade excepcional.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Links Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html?categoria=camisas">Camisas</a></li>
+                        <li><a href="produtos.html?categoria=calcas">Calças</a></li>
+                        <li><a href="produtos.html?categoria=acessorios">Acessórios</a></li>
+                        <li><a href="produtos.html?categoria=ofertas">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Suporte</h6>
+                    <ul class="footer-links">
+                        <li><a href="termos-uso.html">Termos de Uso</a></li>
+                        <li><a href="politica-privacidade.html">Política de Privacidade</a></li>
+                        <li><a href="devolucoes.html">Devoluções</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Contato</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@stash.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 STASH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="carrinho.js"></script>
+</body>
+</html>
+

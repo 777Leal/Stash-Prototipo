@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - STASH</title>
+    <meta name="description" content="Painel de administração da loja STASH para gerenciar produtos, usuários e funcionários.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .admin-sidebar {
+            width: 280px;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            padding: var(--spacing-xl);
+            position: fixed;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .admin-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: var(--spacing-xl);
+            background-color: var(--color-gray-light);
+            min-height: calc(100vh - 80px);
+        }
+        
+        .admin-header {
+            background-color: var(--color-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .admin-title {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .admin-subtitle {
+            color: var(--color-gray-medium);
+            font-size: var(--font-size-lg);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sidebar-item {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-normal);
+            font-weight: 500;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--color-secondary);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .admin-card {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+        
+        .admin-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--color-gray-light);
+        }
+        
+        .card-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-gray-dark));
+            color: var(--color-secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.8;
+        }
+        
+        .stat-number {
+            font-size: var(--font-size-3xl);
+            font-weight: bold;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .stat-label {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .admin-table th,
+        .admin-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+        
+        .admin-table th {
+            background-color: var(--color-gray-light);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+        
+        .admin-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+        
+        .btn-action {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-size: var(--font-size-sm);
+        }
+        
+        .btn-edit {
+            background-color: var(--color-blue);
+            color: var(--color-secondary);
+        }
+        
+        .btn-edit:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-delete {
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+        }
+        
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .form-section {
+            background-color: var(--color-secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-gray-light);
+            padding-bottom: var(--spacing-sm);
+        }
+        
+        .admin-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .admin-form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+        
+        .admin-form-input,
+        .admin-form-select,
+        .admin-form-textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            transition: all var(--transition-normal);
+        }
+        
+        .admin-form-input:focus,
+        .admin-form-select:focus,
+        .admin-form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(255, 235, 59, 0.2);
+        }
+        
+        .admin-form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .btn-admin {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            border: none;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: 500;
+            font-size: var(--font-size-base);
+        }
+        
+        .btn-admin:hover {
+            background-color: var(--color-gray-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-admin.secondary {
+            background-color: var(--color-gray-light);
+            color: var(--color-gray-dark);
+        }
+        
+        .btn-admin.secondary:hover {
+            background-color: var(--color-gray-medium);
+            color: var(--color-secondary);
+        }
+        
+        .admin-section {
+            display: none;
+        }
+        
+        .admin-section.active {
+            display: block;
+        }
+        
+        .status-badge {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-pill);
+            font-size: var(--font-size-xs);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-ativo {
+            background-color: var(--color-success);
+            color: var(--color-secondary);
+        }
+        
+        .status-inativo {
+            background-color: var(--color-red);
+            color: var(--color-secondary);
+        }
+        
+        .status-pendente {
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--transition-normal);
+            }
+            
+            .admin-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .admin-content {
+                margin-left: 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-table {
+                font-size: var(--font-size-sm);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+
+            <ul class="navbar-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                    <i class="fas fa-user-shield"></i>
+                </button>
+                <button class="action-btn" onclick="logout()" aria-label="Sair" title="Sair">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+
+            <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Container Principal -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header mb-4">
+                <h3><i class="fas fa-user-shield"></i> Painel Admin</h3>
+                <p>Bem-vindo, Administrador</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-section="produtos">
+                        <i class="fas fa-box"></i>
+                        <span>Gerenciar Produtos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-section="usuarios">
+                        <i class="fas fa-users"></i>
+                        <span>Gerenciar Usuários</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-section="funcionarios">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Gerenciar Funcionários</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-section="pedidos">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Pedidos</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-section="relatorios">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="admin-content">
+            <!-- Dashboard -->
+            <section id="dashboard" class="admin-section active">
+                <div class="admin-header">
+                    <h1 class="admin-title">Dashboard</h1>
+                    <p class="admin-subtitle">Visão geral do sistema</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-number" id="totalProdutos">6</div>
+                        <div class="stat-label">Total de Produtos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number" id="totalUsuarios">0</div>
+                        <div class="stat-label">Usuários Cadastrados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-number" id="totalPedidos">0</div>
+                        <div class="stat-label">Pedidos Realizados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-number" id="totalVendas">R$ 0</div>
+                        <div class="stat-label">Total em Vendas</div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Atividades Recentes</h2>
+                    </div>
+                    <div id="atividadesRecentes">
+                        <p class="text-muted">Nenhuma atividade recente encontrada.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gerenciar Produtos -->
+            <section id="produtos" class="admin-section">
+                <div class="admin-header">
+                    <h1 class="admin-title">Gerenciar Produtos</h1>
+                    <p class="admin-subtitle">Adicione, edite ou remova produtos da loja</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Adicionar Novo Produto</h2>
+                        <button class="btn-admin" onclick="toggleFormProduto()">
+                            <i class="fas fa-plus"></i> Novo Produto
+                        </button>
+                    </div>
+                    
+                    <div id="formProduto" style="display: none;">
+                        <form id="produtoForm">
+                            <div class="form-grid">
+                                <div class="form-section">
+                                    <h3 class="section-title">Informações Básicas</h3>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoNome">Nome do Produto</label>
+                                        <input type="text" class="admin-form-input" id="produtoNome" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoDescricao">Descrição</label>
+                                        <textarea class="admin-form-textarea" id="produtoDescricao" required></textarea>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoCategoria">Categoria</label>
+                                        <select class="admin-form-select" id="produtoCategoria" required>
+                                            <option value="">Selecione uma categoria</option>
+                                            <option value="claras">Camisas Claras</option>
+                                            <option value="escuras">Camisas Escuras</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-section">
+                                    <h3 class="section-title">Preço e Estoque</h3>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoPreco">Preço (R$)</label>
+                                        <input type="number" class="admin-form-input" id="produtoPreco" step="0.01" min="0" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoEstoque">Estoque</label>
+                                        <input type="number" class="admin-form-input" id="produtoEstoque" min="0" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoTamanhos">Tamanhos (separados por vírgula)</label>
+                                        <input type="text" class="admin-form-input" id="produtoTamanhos" placeholder="P, M, G, GG" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="produtoCores">Cores (separadas por vírgula)</label>
+                                        <input type="text" class="admin-form-input" id="produtoCores" placeholder="Branco, Preto, Azul" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn-admin">
+                                    <i class="fas fa-save"></i> Salvar Produto
+                                </button>
+                                <button type="button" class="btn-admin secondary" onclick="cancelarFormProduto()">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Lista de Produtos</h2>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Categoria</th>
+                                    <th>Preço</th>
+                                    <th>Estoque</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="produtosList">
+                                <!-- Produtos serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gerenciar Usuários -->
+            <section id="usuarios" class="admin-section">
+                <div class="admin-header">
+                    <h1 class="admin-title">Gerenciar Usuários</h1>
+                    <p class="admin-subtitle">Visualize e gerencie usuários cadastrados</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Lista de Usuários</h2>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Data de Cadastro</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usuariosList">
+                                <!-- Usuários serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gerenciar Funcionários -->
+            <section id="funcionarios" class="admin-section">
+                <div class="admin-header">
+                    <h1 class="admin-title">Gerenciar Funcionários</h1>
+                    <p class="admin-subtitle">Gerencie funcionários e seus cargos</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Adicionar Funcionário</h2>
+                        <button class="btn-admin" onclick="toggleFormFuncionario()">
+                            <i class="fas fa-plus"></i> Novo Funcionário
+                        </button>
+                    </div>
+                    
+                    <div id="formFuncionario" style="display: none;">
+                        <form id="funcionarioForm">
+                            <div class="form-grid">
+                                <div class="form-section">
+                                    <h3 class="section-title">Dados Pessoais</h3>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="funcionarioNome">Nome Completo</label>
+                                        <input type="text" class="admin-form-input" id="funcionarioNome" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="funcionarioEmail">E-mail</label>
+                                        <input type="email" class="admin-form-input" id="funcionarioEmail" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="funcionarioTelefone">Telefone</label>
+                                        <input type="tel" class="admin-form-input" id="funcionarioTelefone" required>
+                                    </div>
+                                </div>
+                                <div class="form-section">
+                                    <h3 class="section-title">Informações Profissionais</h3>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="funcionarioCargo">Cargo</label>
+                                        <select class="admin-form-select" id="funcionarioCargo" required>
+                                            <option value="">Selecione um cargo</option>
+                                            <option value="vendedor">Vendedor</option>
+                                            <option value="gerente">Gerente</option>
+                                            <option value="estoquista">Estoquista</option>
+                                            <option value="atendimento">Atendimento ao Cliente</option>
+                                        </select>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="funcionarioSalario">Salário (R$)</label>
+                                        <input type="number" class="admin-form-input" id="funcionarioSalario" step="0.01" min="0" required>
+                                    </div>
+                                    <div class="admin-form-group">
+                                        <label class="admin-form-label" for="funcionarioDataAdmissao">Data de Admissão</label>
+                                        <input type="date" class="admin-form-input" id="funcionarioDataAdmissao" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn-admin">
+                                    <i class="fas fa-save"></i> Salvar Funcionário
+                                </button>
+                                <button type="button" class="btn-admin secondary" onclick="cancelarFormFuncionario()">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Lista de Funcionários</h2>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Cargo</th>
+                                    <th>Salário</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="funcionariosList">
+                                <!-- Funcionários serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pedidos -->
+            <section id="pedidos" class="admin-section">
+                <div class="admin-header">
+                    <h1 class="admin-title">Gerenciar Pedidos</h1>
+                    <p class="admin-subtitle">Visualize e gerencie pedidos dos clientes</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Lista de Pedidos</h2>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Data</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pedidosList">
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">Nenhum pedido encontrado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Relatórios -->
+            <section id="relatorios" class="admin-section">
+                <div class="admin-header">
+                    <h1 class="admin-title">Relatórios</h1>
+                    <p class="admin-subtitle">Visualize relatórios e estatísticas</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Relatórios Disponíveis</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-section">
+                            <h3 class="section-title">Vendas</h3>
+                            <p>Relatório detalhado de vendas por período</p>
+                            <button class="btn-admin">
+                                <i class="fas fa-download"></i> Gerar Relatório de Vendas
+                            </button>
+                        </div>
+                        <div class="form-section">
+                            <h3 class="section-title">Produtos</h3>
+                            <p>Relatório de produtos mais vendidos</p>
+                            <button class="btn-admin">
+                                <i class="fas fa-download"></i> Gerar Relatório de Produtos
+                            </button>
+                        </div>
+                        <div class="form-section">
+                            <h3 class="section-title">Clientes</h3>
+                            <p>Relatório de clientes cadastrados</p>
+                            <button class="btn-admin">
+                                <i class="fas fa-download"></i> Gerar Relatório de Clientes
+                            </button>
+                        </div>
+                        <div class="form-section">
+                            <h3 class="section-title">Estoque</h3>
+                            <p>Relatório de controle de estoque</p>
+                            <button class="btn-admin">
+                                <i class="fas fa-download"></i> Gerar Relatório de Estoque
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
+

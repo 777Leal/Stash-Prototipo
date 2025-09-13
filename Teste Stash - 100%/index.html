@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STASH - Loja de Moda Online</title>
+    <meta name="description" content="Descubra as últimas tendências da moda com qualidade excepcional. Coleção exclusiva de roupas modernas para todas as ocasiões.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+            <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+            <span>STASH</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <ul class="navbar-nav" role="menubar">
+            <li class="nav-item" role="none">
+                <a class="nav-link active" href="index.html" role="menuitem">Home</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+            </li>
+        </ul>
+
+        <!-- INTERAÇÃO DOS BOTÕES DA NAVBAR -->
+        <div class="navbar-actions">
+            <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                <a href="pesquisar.html">
+                    <i class="fas fa-search" style="color: black;"></i>
+                </a>
+            </button>
+
+            <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                <a href="login.html">
+                    <i class="fas fa-user" style="color: black;"></i>
+                </a>
+            </button>
+
+            <button class="action-btn" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                <a href="favoritos.html">
+                    <i class="fas fa-heart" style="color: black;"></i>
+                </a>
+                <span class="badge" id="favoritosBadge">0</span>
+            </button>
+
+            <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                <a href="carrinho.html">
+                    <i class="fas fa-shopping-cart" style="color: black;"></i>
+                </a>
+                <span class="badge" id="carrinhoBadge">0</span>
+            </button>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+        <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+
+        <ul class="mobile-nav" role="menubar">
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="index.html" role="menuitem">Home</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+            </li>
+            <li class="nav-item" role="none">
+                <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+            </li>
+        </ul>
+
+        <div class="mobile-actions">
+            <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                <i class="fas fa-search" style="color: black;"></i>
+                <span>Pesquisar</span>
+            </button>
+            <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                <i class="fas fa-user" style="color: black;"></i>
+                <span>Login</span>
+            </button>
+            <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                <i class="fas fa-heart" style="color: black;"></i>
+                <span>Favoritos</span>
+            </button>
+            <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                <i class="fas fa-shopping-cart" style="color: black;"></i>
+                <span>Carrinho</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Header com imagem de fundo -->
+<header id="header" class="vh-100 d-flex align-items-center text-center text-white" style="
+    background-image: url('/img/BannerHOME.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 80px;
+    position: relative;
+">
+
+  <!-- Sobreposição escura para melhorar a leitura do texto -->
+  <div style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+  "></div>
+
+  <div class="container h-100 d-flex align-items-center justify-content-center" style="z-index: 2;">
+    <div class="carousel-inner">
+      <div class="carousel-item active fade-in-up">
+        <h2 class="text-capitalize">Moda Elegante e Sofisticada</h2>
+        <h1 class="text-uppercase py-2 fw-bold">Descubra Seu Estilo Único</h1>
+        <p>Coleção exclusiva de roupas modernas para todas as ocasiões. Qualidade excepcional e design contemporâneo.</p>
+        <a href="#produtos-destaque" class="btn btn-primary btn-lg">Explorar Coleção</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+    <!-- Seção de Produtos em Destaque -->
+    <section id="produtos-destaque" class="section">
+        <div class="container">
+            <div class="title text-center">
+                <h2 class="position-relative d-inline-block">Produtos em Destaque</h2>
+                <p class="text-muted mt-3">Descubra nossa seleção especial com os melhores preços</p>
+            </div>
+
+            <!-- Botões de Filtro -->
+            <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
+                <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">Todos</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".claras">Camisas Claras</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".escuras">Camisas Escuras</button>
+            </div>
+
+            <!-- Lista de Produtos -->
+            <div class="collection-list row gx-0 gy-3" id="produtosList">
+                <!-- Produtos serão carregados via JavaScript -->
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="produtos.html" class="btn btn-secondary btn-lg">Ver Todos os Produtos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="sobre-preview" class="section bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2>Sobre a STASH</h2>
+                    <p class="lead">Somos uma marca dedicada a oferecer moda de qualidade excepcional, combinando estilo contemporâneo com conforto e durabilidade.</p>
+                    <p>Nossa missão é democratizar o acesso à moda de qualidade, oferecendo peças versáteis que se adaptam ao seu estilo de vida.</p>
+                    <a href="sobre.html" class="btn btn-primary">Saiba Mais</a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                            <p>
+  <img src="/img/SobreNos.png" alt="IMG LOJA" style="width: 500px; height: auto; border-radius: 15px;">
+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>STASH</h5>
+                    <p>Sua loja de moda online com as melhores tendências e qualidade excepcional.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Links Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html?categoria=camisas">Camisas</a></li>
+                        <li><a href="produtos.html?categoria=calcas">Calças</a></li>
+                        <li><a href="produtos.html?categoria=acessorios">Acessórios</a></li>
+                        <li><a href="produtos.html?categoria=ofertas">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Suporte</h6>
+                    <ul class="footer-links">
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="devolucoes.html">Devoluções</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Contato</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@stash.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 STASH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

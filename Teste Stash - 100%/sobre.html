@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - STASH</title>
+    <meta name="description" content="Conheça a história da STASH, nossa missão e valores. Descubra por que somos referência em moda online.">
+    
+    <!-- Fontawesome Cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero-sobre {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f5f5f5" width="1200" height="600"/><circle fill="%23e0e0e0" cx="300" cy="150" r="80"/><circle fill="%23d0d0d0" cx="900" cy="300" r="120"/><circle fill="%23e8e8e8" cx="600" cy="450" r="60"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+            color: var(--color-secondary);
+            margin-top: 80px;
+        }
+        
+        .sobre-section {
+            padding: var(--spacing-3xl) 0;
+        }
+        
+        .sobre-card {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-xl);
+            transition: all var(--transition-normal);
+        }
+        
+        .sobre-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .sobre-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-gray-dark));
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            color: var(--color-secondary);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-primary), var(--color-accent));
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--spacing-2xl);
+            width: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: var(--spacing-xl);
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: var(--spacing-xl);
+            text-align: left;
+        }
+        
+        .timeline-content {
+            background-color: var(--color-secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 10px solid transparent;
+            border-left-color: var(--color-secondary);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 10px solid transparent;
+            border-right-color: var(--color-secondary);
+        }
+        
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-pill);
+            font-weight: bold;
+            font-size: var(--font-size-sm);
+            z-index: 2;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .team-member {
+            background-color: var(--color-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-gray-light), var(--color-gray-medium));
+            margin: 0 auto var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-3xl);
+            color: var(--color-gray-dark);
+        }
+        
+        .member-name {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-primary);
+        }
+        
+        .member-role {
+            color: var(--color-gray-medium);
+            font-weight: 500;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background-color: var(--color-gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+        
+        .social-link:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .valor-item {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+        
+        .valor-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-accent), #ffd700);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            color: var(--color-primary);
+            font-size: var(--font-size-xl);
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-gray-dark));
+            color: var(--color-secondary);
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .stat-item {
+            padding: var(--spacing-lg);
+        }
+        
+        .stat-number {
+            font-size: var(--font-size-5xl);
+            font-weight: bold;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-accent);
+        }
+        
+        .stat-label {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 60px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+            
+            .timeline-content::after {
+                left: -10px !important;
+                right: auto !important;
+                border-left-color: transparent !important;
+                border-right-color: var(--color-secondary) !important;
+            }
+            
+            .timeline-date {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .valores-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="STASH - Página Inicial">
+                <img src="/img/LogoStash.png" alt="Logo da STASH" style="height: 32px; width: auto; margin-right: 8px;">
+                <span>STASH</span>
+            </a>
+
+            <ul class="navbar-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link active" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="action-btn" id="searchBtn" aria-label="Pesquisar produtos" title="Pesquisar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="action-btn" id="loginBtn" aria-label="Fazer login" title="Login">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="action-btn" id="favoritosBtn" aria-label="Lista de favoritos" title="Favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="favoritosBadge">0</span>
+                </button>
+                <button class="action-btn" id="carrinhoBtn" aria-label="Carrinho de compras" title="Carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="carrinhoBadge">0</span>
+                </button>
+            </div>
+
+            <button class="navbar-toggle" id="mobileToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+            <h2 id="mobile-menu-title" class="sr-only">Menu de Navegação</h2>
+            
+            <ul class="mobile-nav" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="index.html" role="menuitem">Home</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="produtos.html" role="menuitem">Produtos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="sobre.html" role="menuitem">Sobre Nós</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="contato.html" role="menuitem">Contato</a>
+                </li>
+            </ul>
+
+            <div class="mobile-actions">
+                <button class="mobile-action-btn" id="mobileSearchBtn" aria-label="Pesquisar produtos">
+                    <i class="fas fa-search"></i>
+                    <span>Pesquisar</span>
+                </button>
+                <button class="mobile-action-btn" id="mobileLoginBtn" aria-label="Fazer login">
+                    <i class="fas fa-user"></i>
+                    <span>Login</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Lista de favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span>Favoritos</span>
+                </button>
+                <button class="mobile-action-btn" aria-label="Carrinho de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Carrinho</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modais -->
+    <div class="modal-overlay" id="searchModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pesquisar Produtos</h3>
+                <button class="modal-close" id="closeSearchModal" aria-label="Fechar modal de pesquisa">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Digite o que você procura..." autocomplete="off">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <div class="search-suggestions">
+                    <h4>Sugestões Populares</h4>
+                    <div class="suggestion-tags">
+                        <button class="suggestion-tag" data-search="camisas">Camisas</button>
+                        <button class="suggestion-tag" data-search="camisas brancas">Camisas Brancas</button>
+                        <button class="suggestion-tag" data-search="camisas pretas">Camisas Pretas</button>
+                        <button class="suggestion-tag" data-search="stash">Stash</button>
+                        <button class="suggestion-tag" data-search="ofertas">Ofertas</button>
+                        <button class="suggestion-tag" data-search="novidades">Novidades</button>
+                    </div>
+                </div>
+
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <h4>Resultados da Pesquisa</h4>
+                    <div id="resultsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Entrar na sua conta</h3>
+                <button class="modal-close" id="closeLoginModal" aria-label="Fechar modal de login">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" class="form-input" id="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Senha</label>
+                        <input type="password" class="form-input" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Lembrar de mim</label>
+                        </div>
+                        <a href="recuperar-senha.html" class="forgot-password">Esqueci minha senha</a>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+                        <button type="button" class="btn btn-secondary btn-lg" id="criarContaBtn">Criar conta</button>
+                    </div>
+                </form>
+
+                <div class="divider">
+                    <span>ou continue com</span>
+                </div>
+
+                <div class="social-login">
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                </div>
+
+                <div class="signup-link">
+                    Não tem uma conta? <a href="cadastro.html">Cadastre-se gratuitamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section com imagem de fundo -->
+<section class="hero-sobre text-white text-center d-flex align-items-center" style="
+    background-image: url('/img/BannerColeção.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 60vh;
+    position: relative;
+">
+
+  <!-- Camada escura sobre a imagem -->
+  <div style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+  "></div>
+
+  <!-- Conteúdo centralizado -->
+  <div class="container position-relative" style="z-index: 2;">
+    <h1>Sobre a STASH</h1>
+    <p class="lead">Conheça nossa história, missão e os valores que nos movem a oferecer sempre o melhor em moda</p>
+  </div>
+</section>
+
+
+    <!-- Nossa História -->
+    <section class="sobre-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Nossa História</h2>
+                <p class="lead">Uma jornada de paixão pela moda e excelência no atendimento</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2020</div>
+                    <div class="timeline-content">
+                        <h4>O Início</h4>
+                        <p>A STASH nasceu da paixão por moda e do desejo de democratizar o acesso a roupas de qualidade. Começamos como uma pequena loja online com foco em camisas elegantes.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2021</div>
+                    <div class="timeline-content">
+                        <h4>Expansão da Coleção</h4>
+                        <p>Expandimos nossa linha de produtos, incluindo novas categorias e estilos para atender diferentes gostos e ocasiões, sempre mantendo nossa qualidade excepcional.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <h4>Reconhecimento</h4>
+                        <p>Fomos reconhecidos como uma das lojas online de moda que mais cresce no Brasil, conquistando a confiança de milhares de clientes.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h4>Inovação Tecnológica</h4>
+                        <p>Investimos em tecnologia para melhorar a experiência de compra online, implementando novos recursos e otimizando nosso atendimento.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h4>Presente</h4>
+                        <p>Hoje somos referência em moda online, oferecendo produtos de qualidade com design contemporâneo e atendimento personalizado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missão, Visão e Valores -->
+    <section class="sobre-section bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Missão, Visão e Valores</h2>
+                <p class="lead">Os pilares que guiam nossa empresa</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="sobre-card text-center">
+                        <div class="sobre-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h4>Nossa Missão</h4>
+                        <p>Democratizar o acesso à moda de qualidade, oferecendo peças versáteis e elegantes que se adaptam ao estilo de vida de cada pessoa, com excelência.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="sobre-card text-center">
+                        <div class="sobre-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Nossa Visão</h4>
+                        <p>Ser a principal referência em moda online no Brasil, reconhecida pela qualidade dos produtos, inovação tecnológica e experiência excepcional do cliente.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="sobre-card text-center">
+                        <div class="sobre-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Nossos Valores</h4>
+                        <p>Qualidade, transparência, sustentabilidade, inovação e respeito ao cliente. Acreditamos que a moda deve ser acessível, responsável e inspiradora.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossos Valores Detalhados -->
+    <section class="sobre-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>O que nos Move</h2>
+                <p class="lead">Valores que fazem a diferença em tudo que fazemos</p>
+            </div>
+
+            <div class="valores-grid">
+                <div class="valor-item">
+                    <div class="valor-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h4>Qualidade</h4>
+                    <p>Selecionamos cuidadosamente cada produto, garantindo materiais de alta qualidade e acabamento impecável em todas as peças.</p>
+                </div>
+
+                <div class="valor-item">
+                    <div class="valor-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Sustentabilidade</h4>
+                    <p>Comprometidos com práticas sustentáveis, buscamos fornecedores responsáveis e processos que respeitam o meio ambiente.</p>
+                </div>
+
+                <div class="valor-item">
+                    <div class="valor-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4>Inovação</h4>
+                    <p>Sempre em busca de novas tendências e tecnologias para oferecer a melhor experiência de compra online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>STASH em Números</h2>
+            <p class="lead">Resultados que refletem nossa dedicação e crescimento</p>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Clientes Satisfeitos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Produtos Únicos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">Avaliação Média</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Satisfação do Cliente</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossa Equipe -->
+<section class="sobre-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Nossa Equipe</h2>
+            <p class="lead">Conheça as pessoas por trás da STASH</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-name">Gustavo Leal</div>
+                <div class="member-role">CEO & Fundadora</div>
+                <p>Visionária por trás da STASH, com mais de 10 anos de experiência em moda e e-commerce.</p>
+                <div class="member-social">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-name">Nathan e Thiago</div>
+                <div class="member-role">Diretor de Design</div>
+                <p>Responsável pela curadoria e desenvolvimento de produtos, sempre em busca das últimas tendências.</p>
+                <div class="member-social">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-name">Pedro Slv</div>
+                <div class="member-role">Gerente de Marketing</div>
+                <p>Especialista em marketing digital e experiência do cliente, focada em conectar a marca com nosso público.</p>
+                <div class="member-social">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Call to Action -->
+    <section class="sobre-section bg-light">
+        <div class="container text-center">
+            <h2>Pronto para Conhecer Nossa Coleção?</h2>
+            <p class="lead">Descubra peças únicas que combinam com seu estilo</p>
+            <div class="mt-4">
+                <a href="produtos.html" class="btn btn-primary btn-lg me-3">Explorar Produtos</a>
+                <a href="contato.html" class="btn btn-secondary btn-lg">Fale Conosco</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>STASH</h5>
+                    <p>Sua loja de moda online com as melhores tendências e qualidade excepcional.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Links Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html?categoria=camisas">Camisas</a></li>
+                        <li><a href="produtos.html?categoria=calcas">Calças</a></li>
+                        <li><a href="produtos.html?categoria=acessorios">Acessórios</a></li>
+                        <li><a href="produtos.html?categoria=ofertas">Ofertas</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Suporte</h6>
+                    <ul class="footer-links">
+                        <li><a href="termosP.html">Termos de Uso</a></li>
+                        <li><a href="termosP.html">Política de Privacidade</a></li>
+                        <li><a href="devolucoes.html">Devoluções</a></li>
+                        <li><a href="devolucoes.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6>Contato</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        <li><i class="fas fa-envelope"></i> contato@stash.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 STASH. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
